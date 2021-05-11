@@ -80,11 +80,7 @@ class Excel implements Exporter, Importer
      */
     public function download($export, string $fileName, string $writerType = null, array $headers = [])
     {
-        return response()->download(
-            $this->export($export, $fileName, $writerType)->getLocalPath(),
-            $fileName,
-            $headers
-        )->deleteFileAfterSend(true);
+        return $this->export($export, $fileName, $writerType)->getLocalPath();
     }
 
     /**
