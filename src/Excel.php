@@ -78,7 +78,17 @@ class Excel implements Exporter, Importer
     /**
      * {@inheritdoc}
      */
+
     public function download($export, string $fileName, string $writerType = null, array $headers = [])
+    {
+        return response()->download(
+            $this->export($export, $fileName, $writerType)->getLocalPath(),
+            $fileName,
+            $headers
+        )->deleteFileAfterSend(true);
+    }
+
+    public function pathToFile($export, string $fileName, string $writerType = null, array $headers = [])
     {
         return $this->export($export, $fileName, $writerType)->getLocalPath();
     }
